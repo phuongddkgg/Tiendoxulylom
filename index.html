@@ -2,127 +2,47 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Hệ Thống Quản Lý Vùng Lõm Sóng Vô Tuyến - Viettel An Giang (Hỗ trợ Excel trực tiếp)</title>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <script src="xlsx.full.min.js"></script>
-    
+    <title>Báo Cáo Vùng Lõm Sóng Di Động - Viettel An Giang (v2)</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f4f8;
-            color: #2c3e50;
+            background-color: #f4f6f9;
+            color: #333;
             margin: 0;
             padding: 20px;
         }
         .container {
-            max-width: 1300px;
+            max-width: 1250px;
             margin: 0 auto;
-            background: #ffffff;
+            background: #fff;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(149, 157, 165, 0.15);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
-        .header-wrapper {
+        .header {
             border-bottom: 3px solid #0056b3;
             padding-bottom: 20px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 30px;
         }
         h1 {
             color: #0056b3;
-            margin: 0 0 8px 0;
+            margin: 0 0 10px 0;
             font-size: 26px;
             text-transform: uppercase;
-            font-weight: 700;
         }
         .engineer-badge {
-            background: #e1f5fe;
-            color: #0288d1;
-            padding: 6px 14px;
+            background: #e6f0fa;
+            color: #0056b3;
+            padding: 6px 12px;
             border-radius: 20px;
             font-weight: bold;
             font-size: 13px;
             display: inline-block;
-            border: 1px solid #b3e5fc;
-        }
-        .library-status {
-            margin-top: 5px;
-            font-size: 12px;
-            display: block;
-        }
-        .status-ok { color: #2ed573; font-weight: bold; }
-        .status-error { color: #ff4757; font-weight: bold; }
-        
-        .meta-info {
-            text-align: right;
-            font-size: 13px;
-            color: #5a738e;
-            line-height: 1.5;
         }
         
-        /* Upload Component */
-        .upload-section {
-            background: #f1f9ff;
-            border: 2px dashed #00a8ff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-        }
-        .upload-left {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .upload-title {
-            font-weight: bold;
-            font-size: 15px;
-            color: #0056b3;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .upload-desc {
-            font-size: 13px;
-            color: #636e72;
-        }
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-        .btn-upload {
-            border: 2px solid #0056b3;
-            color: #0056b3;
-            background-color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-upload:hover {
-            background-color: #0056b3;
-            color: white;
-        }
-        .file-input-wrapper input[type=file] {
-            font-size: 100px;
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        /* Filter Component */
+        /* Filter Styles */
         .filter-section {
-            background: #f8f9fa;
+            background: #fdfdfd;
             border: 1px solid #e1e8ed;
             padding: 15px 20px;
             border-radius: 8px;
@@ -131,8 +51,11 @@
         .filter-title {
             font-weight: bold;
             font-size: 14px;
-            color: #2c3e50;
-            margin-bottom: 12px;
+            color: #4f5d73;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .filter-buttons {
             display: flex;
@@ -146,34 +69,34 @@
             font-size: 13px;
             border-radius: 6px;
             cursor: pointer;
-            transition: all 0.15s ease;
+            transition: all 0.2s;
             font-weight: 500;
         }
         .btn-filter:hover {
             background: #e9ecef;
+            border-color: #adb5bd;
         }
         .btn-filter.active {
             background: #0056b3;
             color: #fff;
             border-color: #0056b3;
             font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,86,179,0.2);
         }
         
-        /* KPI Dashboard */
         .kpi-container {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             gap: 15px;
         }
         .kpi-card {
             flex: 1;
-            background: #ffffff;
-            border: 1px solid #e1e8ed;
+            background: #fafafa;
             border-left: 5px solid #ccc;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .kpi-card.total { border-left-color: #2f3542; }
         .kpi-card.success { border-left-color: #2ed573; }
@@ -181,9 +104,9 @@
         .kpi-card.danger { border-left-color: #ff4757; }
         
         .kpi-val {
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 4px;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
             color: #2f3542;
         }
         .kpi-card.success .kpi-val { color: #2ed573; }
@@ -191,58 +114,59 @@
         .kpi-card.danger .kpi-val { color: #ff4757; }
         
         .kpi-lbl {
-            font-size: 12px;
+            font-size: 13px;
             color: #747d8c;
             text-transform: uppercase;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
         
         .section-title {
             font-size: 18px;
-            color: #2c3e50;
+            color: #2f3542;
             border-left: 4px solid #0056b3;
             padding-left: 10px;
-            margin: 25px 0 15px 0;
+            margin: 30px 0 15px 0;
             font-weight: bold;
         }
         
-        /* Table Component */
-        .table-responsive {
-            overflow-x: auto;
-            margin-top: 15px;
+        .commentary {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #4f5d73;
+            margin-bottom: 30px;
         }
+        
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 15px;
             font-size: 13.5px;
-            min-width: 900px;
         }
         th {
             background-color: #0056b3;
             color: white;
             text-align: left;
-            padding: 14px 12px;
+            padding: 12px;
             font-weight: 600;
-            position: sticky;
-            top: 0;
         }
         td {
             padding: 12px;
             border-bottom: 1px solid #e1e8ed;
             vertical-align: top;
-            line-height: 1.4;
         }
         tr:nth-child(even) {
-            background-color: #f8fafc;
+            background-color: #fdfdfd;
         }
-        tr:hover {
-            background-color: #f1f5f9;
+        tr.hidden {
+            display: none !important;
         }
         
         .badge {
             display: inline-block;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border-radius: 4px;
             font-size: 11px;
             font-weight: bold;
@@ -256,295 +180,389 @@
         .no-data-msg {
             display: none;
             text-align: center;
-            padding: 40px;
-            color: #7f8c8d;
+            padding: 30px;
+            color: #888;
             font-style: italic;
-            font-size: 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border: 1px dashed #ccc;
-        }
-        
-        code {
-            background: #f1f2f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: Consolas, monospace;
-            color: #2f3542;
-            font-size: 12px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header-wrapper">
-            <div>
-                <h1>Hệ Thống Thống Kê &amp; Giám Sát Vùng Lõm Sóng</h1>
-                <div class="engineer-badge">🚀 Hỗ Trợ Đọc File Excel (.xlsx, .xls) Trực Tiếp</div>
-                <div id="libStatus" class="library-status">Đang kiểm tra thư viện Excel...</div>
-            </div>
-            <div class="meta-info">
-                <strong>Đơn vị hạ tầng:</strong> Kỹ thuật Vô tuyến<br>
-                <strong>Phạm vi dữ liệu:</strong> Toàn bộ địa bàn<br>
-                <strong>Cơ chế cập nhật:</strong> Import trực tiếp File Excel gốc (.xlsx)
-            </div>
+        <div class="header">
+            <h1>Báo Cáo Phân Tích &amp; Xử Lý Vùng Lõm Sóng</h1>
+            <div class="engineer-badge">⚡ Góc Nhìn Kỹ Sư Vô Tuyến Kinh Nghiệm 10 Năm</div>
         </div>
 
-        <div class="upload-section">
-            <div class="upload-left">
-                <div class="upload-title">📊 Cập Nhật Dữ Liệu Từ File Excel Gốc (.xlsx / .xls)</div>
-                <div class="upload-desc">Không cần đổi đuôi sang CSV nữa! Hãy chọn trực tiếp file Excel của bạn. Hệ thống sẽ tự động quét và bóc tách dữ liệu thông minh.</div>
-            </div>
-            <div class="file-input-wrapper">
-                <button class="btn-upload">📂 Chọn file Excel (.xlsx, .xls)</button>
-                <input type="file" id="excelFileInput" accept=".xlsx, .xls" onchange="handleFileSelect(event)" />
-            </div>
-        </div>
-
+        <!-- BỘ LỌC KHU VỰC THÔNG MINH -->
         <div class="filter-section">
-            <div class="filter-title">🔍 Lọc Nhanh Theo Địa Bàn Khu Vực:</div>
-            <div class="filter-buttons" id="filterButtonsContainer">
-                </div>
+            <div class="filter-title">
+                🔍 Bộ Lọc Nhanh Theo Khu Vực (Địa Bàn):
+            </div>
+            <div class="filter-buttons">
+                <button class="btn-filter active" onclick="filterKhuVuc('ALL')">Tất Cả Khu Vực (24)</button>
+                <button class="btn-filter" id="btn-Châu_Thành" onclick="filterKhuVuc('Châu Thành')">Châu Thành (1)</button>
+                <button class="btn-filter" id="btn-GÒ_QUAO" onclick="filterKhuVuc('GÒ QUAO')">GÒ QUAO (1)</button>
+                <button class="btn-filter" id="btn-Kiên_Hải" onclick="filterKhuVuc('Kiên Hải')">Kiên Hải (1)</button>
+                <button class="btn-filter" id="btn-Kiên_Lương" onclick="filterKhuVuc('Kiên Lương')">Kiên Lương (8)</button>
+                <button class="btn-filter" id="btn-Phú_Quốc" onclick="filterKhuVuc('Phú Quốc')">Phú Quốc (1)</button>
+                <button class="btn-filter" id="btn-Tri_Tôn" onclick="filterKhuVuc('Tri Tôn')">Tri Tôn (1)</button>
+                <button class="btn-filter" id="btn-U_Minh_Thượng" onclick="filterKhuVuc('U Minh Thượng')">U Minh Thượng (8)</button>
+                <button class="btn-filter" id="btn-Vĩnh_Thuận" onclick="filterKhuVuc('Vĩnh Thuận')">Vĩnh Thuận (3)</button>
+            </div>
         </div>
 
+        <!-- THỐNG KÊ KPI ĐỘNG -->
         <div class="kpi-container">
             <div class="kpi-card total">
-                <div class="kpi-val" id="kpi-total">0</div>
-                <div class="kpi-lbl">Khu vực sóng kém</div>
+                <div class="kpi-val" id="kpi-total">24</div>
+                <div class="kpi-lbl">Đang Hiển Thị</div>
             </div>
             <div class="kpi-card success">
-                <div class="kpi-val" id="kpi-ok">0</div>
-                <div class="kpi-lbl">Đã cải thiện / Không còn lõm</div>
+                <div class="kpi-val" id="kpi-ok">5</div>
+                <div class="kpi-lbl">Đã cải thiện / Không lõm</div>
             </div>
             <div class="kpi-card danger">
-                <div class="kpi-val" id="kpi-ko">0</div>
-                <div class="kpi-lbl">Đã tối ưu nhưng chưa đạt</div>
+                <div class="kpi-val" id="kpi-ko">3</div>
+                <div class="kpi-lbl">Chưa cải thiện</div>
             </div>
             <div class="kpi-card warning">
-                <div class="kpi-val" id="kpi-pending">0</div>
-                <div class="kpi-lbl">Đang khảo sát / Chờ hạ tầng</div>
+                <div class="kpi-val" id="kpi-pending">16</div>
+                <div class="kpi-lbl">Chờ xử lý / Khảo sát</div>
             </div>
         </div>
 
-        <div class="section-title">📋 Bảng Chi Tiết Vùng Lõm, Trạng Thái &amp; Giải Pháp Cụ Thể</div>
-        <div id="no-data" class="no-data-msg">Không tìm thấy dữ liệu vùng lõm phù hợp hoặc file tải vào trống.</div>
-        
-        <div class="table-responsive">
-            <table id="data-table">
-                <thead>
-                    <tr>
-                        <th style="width: 4%;">STT</th>
-                        <th style="width: 13%;">Khu Vực</th>
-                        <th style="width: 23%;">Địa Chỉ Cụ Thể</th>
-                        <th style="width: 8%;">Mức Sóng</th>
-                        <th style="width: 12%;">Trạng Thái Xử Lý</th>
-                        <th style="width: 28%;">Giải Pháp Chi Tiết</th>
-                        <th style="width: 12%;">Trạm Gần Nhất (Cự ly)</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    </tbody>
-            </table>
+        <div class="section-title">📊 Nhận Định Chuyên Sâu Từ Kỹ Sư Vô Tuyến</div>
+        <div class="commentary" id="commentary-box">
+            <strong>Góc nhìn hạ tầng vô tuyến kỹ thuật:</strong><br>
+            - Khi click vào từng khu vực phía trên, bảng dữ liệu và bộ đếm chỉ số KPI sẽ tự động lọc theo đúng địa bàn để anh/chị tiện theo dõi.<br>
+            - Đối với địa bàn có vùng lõm nặng do cự ly trạm quá xa như <strong>U Minh Thượng (8 điểm cuối kênh)</strong>, giải pháp căn chỉnh ăng-ten vật lý không giải quyết triệt để được, bắt buộc phải chờ tiến độ dựng trạm hoặc bổ sung Small Cell.
         </div>
+
+        <div class="section-title">📋 Chi Tiết Trạng Thái Và Giải Pháp Từng Điểm</div>
+        <div id="no-data" class="no-data-msg">Không có dữ liệu phản ánh cho khu vực này.</div>
+        
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Khu Vực</th>
+                    <th>Địa Chỉ Phản Ánh</th>
+                    <th>Mức Sóng</th>
+                    <th>Trạng Thái Xử Lý</th>
+                    <th>Giải Pháp Kỹ Thuật (Vô Tuyến)</th>
+                    <th>Trạm Phục Vụ (Cách m)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Cải thiện">
+                    <td>1</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Rạch Đùng, Kiên Lương<br><small style="color:#888;">AM: Đặng Trọng Hiếu</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch</span></td>
+                    <td><span class="badge badge-success">✓ Cải Thiện</span></td>
+                    <td>Tối ưu vùng phủ KGG0303-11 và KGG0169</td>
+                    <td><code>KGG0303-11</code> (990.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Không lõm">
+                    <td>2</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Rạch Đùng, Kiên Lương<br><small style="color:#888;">AM: Đặng Trọng Hiếu</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch</span></td>
+                    <td><span class="badge badge-info">✓ Không Lõm</span></td>
+                    <td>Tối ưu vùng phủ KGG0273</td>
+                    <td><code>KGG0273</code> (320.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Cải thiện">
+                    <td>3</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Rạch Đùng, Kiên Lương<br><small style="color:#888;">AM: Huỳnh Kim Yến</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">0 vạch</span></td>
+                    <td><span class="badge badge-success">✓ Cải Thiện</span></td>
+                    <td>Tối ưu vùng phủ KGG0169-12 và KGG0169</td>
+                    <td><code>KGG0169</code> (700.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Cải thiện">
+                    <td>4</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Hòa Điền, Kiên Lương<br><small style="color:#888;">AM: Phạm Thị Thảo</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch</span></td>
+                    <td><span class="badge badge-success">✓ Cải Thiện</span></td>
+                    <td>Tối ưu và share tải trạm KGG0475_1; AZI_50; TILT_4)</td>
+                    <td><code>KGG0568</code> (1450.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Không cải thiện">
+                    <td>5</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Bình Giang, Kiên Lương<br><small style="color:#888;">AM: Hoàng Văn Thực</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch</span></td>
+                    <td><span class="badge badge-danger">✗ Chưa Đạt</span></td>
+                    <td>- Tối ưu vùng phủ trạm KGG0170 và KGG0605 - Đẩy nhanh triển khai trạm tồn KGG0170-11</td>
+                    <td><code>KGG0170</code> (950.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Hải" data-kq="Cải thiện">
+                    <td>6</td>
+                    <td><strong>Kiên Hải</strong></td>
+                    <td>Hòn Sơn, Kiên Hải<br><small style="color:#888;">AM: Võ Chí Tâm</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch</span></td>
+                    <td><span class="badge badge-success">✓ Cải Thiện</span></td>
+                    <td>Tối ưu vùng phủ trạm KGG1023</td>
+                    <td><code>KGG1023</code> (420.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Vĩnh Thuận" data-kq="Không cải thiện">
+                    <td>7</td>
+                    <td><strong>Vĩnh Thuận</strong></td>
+                    <td>Ấp Bình Hòa, Vĩnh Bình, Vĩnh Thuận<br><small style="color:#888;">AM: Trần Quốc Ca</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch</span></td>
+                    <td><span class="badge badge-danger">✗ Chưa Đạt</span></td>
+                    <td>- Tối ưu vùng phủ trạm KGG0623-11 - Thêm sector KGG0055-11</td>
+                    <td><code>KGG0055-11</code> (780.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Tri Tôn" data-kq="Không cải thiện">
+                    <td>8</td>
+                    <td><strong>Tri Tôn</strong></td>
+                    <td>trên Núi dài, ấp Lò Rèng, Tri Tôn<br><small style="color:#888;">AM: Nguyễn Văn Quyện</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">2 vạch</span></td>
+                    <td><span class="badge badge-danger">✗ Chưa Đạt</span></td>
+                    <td>ĐX bổ sung thêm Sector AGG0439-11; AZI_240, tilt_2</td>
+                    <td><code>AGG0439-11</code> (1700.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Chưa xử lý">
+                    <td>9</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Ba Trại, Kiên Lương<br><small style="color:#888;">AM: Nguyễn Thị Diệu Hòa</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">2 vạch</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0117</code> (3500.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Chưa xử lý">
+                    <td>10</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Ấp Núi Mây, Kiên Lương<br><small style="color:#888;">AM: Nguyễn Thị Diệu Hòa</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">2 vạch</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0117</code> (1900.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Vĩnh Thuận" data-kq="Chưa xử lý">
+                    <td>11</td>
+                    <td><strong>Vĩnh Thuận</strong></td>
+                    <td>Ấp Kênh 14, Vĩnh Thuận<br><small style="color:#888;">AM: Trần Quốc Ca</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0383</code> (1200.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>12</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Kênh 21, ấp Kênh 5, U Minh Thượng<br><small style="color:#888;">AM: Nguyễn Bình Luận</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0297</code> (2700.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Kiên Lương" data-kq="Chưa xử lý">
+                    <td>13</td>
+                    <td><strong>Kiên Lương</strong></td>
+                    <td>Kiên Lương<br><small style="color:#888;">AM: Phạm Thị Thảo</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">0 vạch</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0034</code> (100.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Châu Thành" data-kq="Chưa xử lý">
+                    <td>14</td>
+                    <td><strong>Châu Thành</strong></td>
+                    <td>Châu Thành, An Giang<br><small style="color:#888;">AM: Trần Bá Phúc</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">1 vạch </span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0246</code> (550.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Vĩnh Thuận" data-kq="Chưa xử lý">
+                    <td>15</td>
+                    <td><strong>Vĩnh Thuận</strong></td>
+                    <td>Ấp Nước Chảy, Vĩnh Bình<br><small style="color:#888;">AM: Trần Quốc Ca</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0265</code> (2150.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="Phú Quốc" data-kq="Chưa xử lý">
+                    <td>16</td>
+                    <td><strong>Phú Quốc</strong></td>
+                    <td>Bến tàu Bãi Vòng, Phú Quốc (gần trạm KGG394)<br><small style="color:#888;">AM: Phạm Văn Tế</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG1033</code> (505.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>17</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Từ nữa kênh vô cuối kênh 10, ấp Minh Kiên A, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0254-11</code> (590.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>18</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td> Từ nữa kênh vô cuối  kênh 14, ấp Minh Thượng, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0639</code> (2000.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>19</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Từ nữa kênh vô cuối  kênh 15, ấp Minh Thoại, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0639-11</code> (2900.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>20</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Từ nữa kênh vô cuối kênh 16, ấp Minh Hưng, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0215</code> (2500.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>21</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Từ nữa kênh vô cuối kênh 17a, ấp An Hưng, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0086-11</code> (790.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>22</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Từ nữa kênh vô cuối kênh 18, ấp An Thạnh, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG00864</code> (1700.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="U Minh Thượng" data-kq="Chưa xử lý">
+                    <td>23</td>
+                    <td><strong>U Minh Thượng</strong></td>
+                    <td>Từ nữa kênh vô cuối kênh 21, ấp Kênh Năm, xã U Minh Thượng, An Giang<br><small style="color:#888;">AM: Trần Văn Soài</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0297</code> (2700.0m)</td>
+                </tr>
+    
+                <tr class="row-item" data-khuvuc="GÒ QUAO" data-kq="Chưa xử lý">
+                    <td>24</td>
+                    <td><strong>GÒ QUAO</strong></td>
+                    <td>Ấp An Thuận, xã Định An, KGG<br><small style="color:#888;">AM: Nguyễn Trúc Phương</small></td>
+                    <td><span style="color:#e67e22; font-weight:bold;">Sóng yếu</span></td>
+                    <td><span class="badge badge-warning">⏳ Chờ Xử Lý</span></td>
+                    <td>Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)</td>
+                    <td><code>KGG0451</code> (1200.0m)</td>
+                </tr>
+    
+            </tbody>
+        </table>
     </div>
 
+    <!-- JAVASCRIPT XỬ LÝ LỌC ĐỘNG TẠI TRÌNH DUYỆT -->
     <script>
-        // Khởi tạo tập dữ liệu mẫu mặc định ban đầu
-        let currentDataset = [];
-        let activeKhuVuc = "ALL";
-
-        // Kiểm tra sự tồn tại của thư viện XLSX xử lý Excel
-        function checkLibrary() {
-            const statusDiv = document.getElementById("libStatus");
-            if (typeof XLSX !== 'undefined') {
-                statusDiv.innerHTML = '<span class="status-ok">● Thư viện Excel đã kích hoạt</span> (Sẵn sàng chạy Trực tuyến hoặc Ngoại tuyến)';
-                return true;
+        const rawData = [{"stt": 1, "khu_vuc": "Kiên Lương", "nhan_vien": "Đặng Trọng Hiếu", "dia_chi": "Rạch Đùng, Kiên Lương", "vach_song": "1 vạch", "giai_phap": "Tối ưu vùng phủ KGG0303-11 và KGG0169", "ket_qua": "Cải thiện", "tram": "KGG0303-11", "khoang_cach": 990.0}, {"stt": 2, "khu_vuc": "Kiên Lương", "nhan_vien": "Đặng Trọng Hiếu", "dia_chi": "Rạch Đùng, Kiên Lương", "vach_song": "1 vạch", "giai_phap": "Tối ưu vùng phủ KGG0273", "ket_qua": "Không lõm", "tram": "KGG0273", "khoang_cach": 320.0}, {"stt": 3, "khu_vuc": "Kiên Lương", "nhan_vien": "Huỳnh Kim Yến", "dia_chi": "Rạch Đùng, Kiên Lương", "vach_song": "0 vạch", "giai_phap": "Tối ưu vùng phủ KGG0169-12 và KGG0169", "ket_qua": "Cải thiện", "tram": "KGG0169", "khoang_cach": 700.0}, {"stt": 4, "khu_vuc": "Kiên Lương", "nhan_vien": "Phạm Thị Thảo", "dia_chi": "Hòa Điền, Kiên Lương", "vach_song": "1 vạch", "giai_phap": "Tối ưu và share tải trạm KGG0475_1; AZI_50; TILT_4)", "ket_qua": "Cải thiện", "tram": "KGG0568", "khoang_cach": 1450.0}, {"stt": 5, "khu_vuc": "Kiên Lương", "nhan_vien": "Hoàng Văn Thực", "dia_chi": "Bình Giang, Kiên Lương", "vach_song": "1 vạch", "giai_phap": "- Tối ưu vùng phủ trạm KGG0170 và KGG0605\n- Đẩy nhanh triển khai trạm tồn KGG0170-11", "ket_qua": "Không cải thiện", "tram": "KGG0170", "khoang_cach": 950.0}, {"stt": 6, "khu_vuc": "Kiên Hải", "nhan_vien": "Võ Chí Tâm", "dia_chi": "Hòn Sơn, Kiên Hải", "vach_song": "1 vạch", "giai_phap": "Tối ưu vùng phủ trạm KGG1023", "ket_qua": "Cải thiện", "tram": "KGG1023", "khoang_cach": 420.0}, {"stt": 7, "khu_vuc": "Vĩnh Thuận", "nhan_vien": "Trần Quốc Ca", "dia_chi": "Ấp Bình Hòa, Vĩnh Bình, Vĩnh Thuận", "vach_song": "1 vạch", "giai_phap": "- Tối ưu vùng phủ trạm KGG0623-11\n- Thêm sector KGG0055-11", "ket_qua": "Không cải thiện", "tram": "KGG0055-11", "khoang_cach": 780.0}, {"stt": 8, "khu_vuc": "Tri Tôn", "nhan_vien": "Nguyễn Văn Quyện", "dia_chi": "trên Núi dài, ấp Lò Rèng, Tri Tôn", "vach_song": "2 vạch", "giai_phap": "ĐX bổ sung thêm Sector AGG0439-11; AZI_240, tilt_2", "ket_qua": "Không cải thiện", "tram": "AGG0439-11", "khoang_cach": 1700.0}, {"stt": 9, "khu_vuc": "Kiên Lương", "nhan_vien": "Nguyễn Thị Diệu Hòa", "dia_chi": "Ba Trại, Kiên Lương", "vach_song": "2 vạch", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0117", "khoang_cach": 3500.0}, {"stt": 10, "khu_vuc": "Kiên Lương", "nhan_vien": "Nguyễn Thị Diệu Hòa", "dia_chi": "Ấp Núi Mây, Kiên Lương", "vach_song": "2 vạch", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0117", "khoang_cach": 1900.0}, {"stt": 11, "khu_vuc": "Vĩnh Thuận", "nhan_vien": "Trần Quốc Ca", "dia_chi": "Ấp Kênh 14, Vĩnh Thuận", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0383", "khoang_cach": 1200.0}, {"stt": 12, "khu_vuc": "U Minh Thượng", "nhan_vien": "Nguyễn Bình Luận", "dia_chi": "Kênh 21, ấp Kênh 5, U Minh Thượng", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0297", "khoang_cach": 2700.0}, {"stt": 13, "khu_vuc": "Kiên Lương", "nhan_vien": "Phạm Thị Thảo", "dia_chi": "Kiên Lương", "vach_song": "0 vạch", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0034", "khoang_cach": 100.0}, {"stt": 14, "khu_vuc": "Châu Thành", "nhan_vien": "Trần Bá Phúc", "dia_chi": "Châu Thành, An Giang", "vach_song": "1 vạch ", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0246", "khoang_cach": 550.0}, {"stt": 15, "khu_vuc": "Vĩnh Thuận", "nhan_vien": "Trần Quốc Ca", "dia_chi": "Ấp Nước Chảy, Vĩnh Bình", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0265", "khoang_cach": 2150.0}, {"stt": 16, "khu_vuc": "Phú Quốc", "nhan_vien": "Phạm Văn Tế", "dia_chi": "Bến tàu Bãi Vòng, Phú Quốc (gần trạm KGG394)", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG1033", "khoang_cach": 505.0}, {"stt": 17, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": "Từ nữa kênh vô cuối kênh 10, ấp Minh Kiên A, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0254-11", "khoang_cach": 590.0}, {"stt": 18, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": " Từ nữa kênh vô cuối  kênh 14, ấp Minh Thượng, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0639", "khoang_cach": 2000.0}, {"stt": 19, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": "Từ nữa kênh vô cuối  kênh 15, ấp Minh Thoại, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0639-11", "khoang_cach": 2900.0}, {"stt": 20, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": "Từ nữa kênh vô cuối kênh 16, ấp Minh Hưng, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0215", "khoang_cach": 2500.0}, {"stt": 21, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": "Từ nữa kênh vô cuối kênh 17a, ấp An Hưng, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0086-11", "khoang_cach": 790.0}, {"stt": 22, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": "Từ nữa kênh vô cuối kênh 18, ấp An Thạnh, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG00864", "khoang_cach": 1700.0}, {"stt": 23, "khu_vuc": "U Minh Thượng", "nhan_vien": "Trần Văn Soài", "dia_chi": "Từ nữa kênh vô cuối kênh 21, ấp Kênh Năm, xã U Minh Thượng, An Giang", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0297", "khoang_cach": 2700.0}, {"stt": 24, "khu_vuc": "GÒ QUAO", "nhan_vien": "Nguyễn Trúc Phương", "dia_chi": "Ấp An Thuận, xã Định An, KGG", "vach_song": "Sóng yếu", "giai_phap": "Chưa có giải pháp kỹ thuật cụ thể (Đang khảo sát)", "ket_qua": "Chưa xử lý", "tram": "KGG0451", "khoang_cach": 1200.0}];
+        
+        function filterKhuVuc(selectedKv) {
+            // Cập nhật trạng thái active của nút
+            const buttons = document.querySelectorAll('.btn-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Tìm nút vừa click
+            if(selectedKv === 'ALL') {
+                buttons[0].classList.add('active');
             } else {
-                statusDiv.innerHTML = '<span class="status-error">● Chưa nạp được thư viện Excel offline!</span> Mẹo: Hãy tải file <code>xlsx.full.min.js</code> đặt cạnh file HTML này để chạy không cần mạng.';
-                return false;
+                const targetId = 'btn-' + selectedKv.replace(/ /g, '_');
+                const activeBtn = document.getElementById(targetId);
+                if(activeBtn) activeBtn.classList.add('active');
             }
-        }
-
-        // Tiếp nhận file Excel (.xlsx / .xls) trực tiếp
-        function handleFileSelect(event) {
-            if (typeof XLSX === 'undefined') {
-                alert("LỖI: Trình duyệt chưa tải được thư viện Excel (XLSX).\\n\\nHướng dẫn khắc phục:\\n1. Nếu máy tính có internet: Hãy tải lại trang để hệ thống tự load qua link CDN.\\n2. Nếu máy chạy mạng nội bộ Viettel (Offline): Vui lòng tải file 'xlsx.full.min.js' về và lưu chung một thư mục với file HTML này.");
-                return;
-            }
-
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-                const parsedLines = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
-                processExcelLines(parsedLines);
-            };
-            reader.readAsArrayBuffer(file);
-        }
-
-        // Xử lý dữ liệu mảng 2 chiều trích xuất từ Sheet Excel
-        function processExcelLines(parsedLines) {
-            if (parsedLines.length === 0) {
-                alert("File Excel tải vào không chứa dữ liệu!");
-                return;
-            }
-
-            let headerIdx = -1;
-            for (let i = 0; i < parsedLines.length; i++) {
-                let rowStr = parsedLines[i].join(" ").toUpperCase();
-                if (rowStr.includes("STT") && (rowStr.includes("KHU VỰC") || rowStr.includes("ĐỊA CHỈ") || rowStr.includes("SÓNG"))) {
-                    headerIdx = i;
-                    break;
-                }
-            }
-
-            if (headerIdx === -1) {
-                alert("LỖI: Không tìm thấy hàng tiêu đề cột tiêu chuẩn! File Excel cần có dòng chứa các chữ cột như: STT, KHU VỰC, Địa chỉ, Kết quả... Hãy kiểm tra lại file Excel của bạn.");
-                return;
-            }
-
-            const headers = parsedLines[headerIdx].map(h => String(h).trim().toUpperCase());
             
-            const idxSTT = headers.findIndex(h => h.includes("STT"));
-            const idxKV = headers.findIndex(h => h.includes("KHU VỰC") || h.includes("VIETTEL"));
-            const idxNV = headers.findIndex(h => h.includes("NHÂN VIÊN"));
-            const idxDC = headers.findIndex(h => h.includes("ĐỊA CHỈ") || h.includes("ẤP/KHÓM"));
-            const idxVS = headers.findIndex(h => h.includes("VẠCH SÓNG") || h.includes("MỨC SÓNG"));
-            const idxGP = headers.findIndex(h => h.includes("GIẢI PHÁP"));
-            const idxKQ = headers.findIndex(h => h.includes("KẾT QUẢ"));
-            const idxTram = headers.findIndex(h => h.includes("TRẠM PHỤC VỤ") || h.includes("TRẠM"));
-            const idxKC = headers.findIndex(h => h.includes("KHOẢNG CÁCH") || h.includes("CỰ LY"));
-
-            if (idxKV === -1 || idxDC === -1) {
-                alert("LỖI: File Excel thiếu cột 'Khu Vực' hoặc cột 'Địa Chỉ'. Vui lòng kiểm tra lại cấu trúc file!");
-                return;
-            }
-
-            let newRecords = [];
-            let internalStt = 1;
-
-            for (let i = headerIdx + 1; i < parsedLines.length; i++) {
-                let r = parsedLines[i];
-                if (!r[idxKV] || String(r[idxKV]).trim() === "" || r.length < 2) continue;
-
-                let kvVal = String(r[idxKV]).trim();
-                if (kvVal.toUpperCase().includes("VIETTEL AN GIANG") || kvVal.toUpperCase().includes("TỔNG CỘNG") || kvVal.toUpperCase().includes("TỔNG HỢP")) continue;
-
-                newRecords.push({
-                    "stt": internalStt++,
-                    "khu_vuc": kvVal,
-                    "nhan_vien": (idxNV !== -1 && r[idxNV]) ? String(r[idxNV]).trim() : "Chưa rõ",
-                    "dia_chi": (idxDC !== -1 && r[idxDC]) ? String(r[idxDC]).trim() : "Chưa cập nhật địa chỉ",
-                    "vach_song": (idxVS !== -1 && r[idxVS]) ? String(r[idxVS]).trim() : "≤ 2 vạch",
-                    "giai_phap": (idxGP !== -1 && r[idxGP] && String(r[idxGP]).trim() !== "") ? String(r[idxGP]).trim() : "Chưa có giải pháp cụ thể",
-                    "ket_qua": (idxKQ !== -1 && r[idxKQ] && String(r[idxKQ]).trim() !== "") ? String(r[idxKQ]).trim() : "Chưa xử lý",
-                    "tram": (idxTram !== -1 && r[idxTram] && String(r[idxTram]).trim() !== "") ? String(r[idxTram]).trim() : "N/A",
-                    "khoang_cach": (idxKC !== -1 && r[idxKC] && String(r[idxKC]).trim() !== "") ? String(r[idxKC]).trim() : "N/A"
-                });
-            }
-
-            if (newRecords.length === 0) {
-                alert("Nhận diện được hàng tiêu đề cột nhưng không bóc tách được dòng dữ liệu hợp lệ nào ở dưới!");
-                return;
-            }
-
-            currentDataset = newRecords;
-            activeKhuVuc = "ALL";
-            
-            renderDashboard();
-            alert("🎉 Đồng bộ thành công! Đã nạp trực tiếp " + newRecords.length + " vùng lõm sóng từ file Excel.");
-        }
-
-        // Hàm vẽ giao diện và tính toán KPI bộ lọc hiển thị
-        function renderDashboard() {
-            const btnContainer = document.getElementById("filterButtonsContainer");
-            const tableBody = document.getElementById("tableBody");
-
-            let khuVucMap = {};
-            currentDataset.forEach(r => {
-                khuVucMap[r.khu_vuc] = (khuVucMap[r.khu_vuc] || 0) + 1;
-            });
-            
-            let btnHtml = `<button class="btn-filter ${activeKhuVuc === 'ALL' ? 'active' : ''}" onclick="changeFilter('ALL')">Tất Cả Khu Vực (${currentDataset.length})</button>`;
-            
-            Object.keys(khuVucMap).sort().forEach(kv => {
-                let count = khuVucMap[kv];
-                btnHtml += `<button class="btn-filter ${activeKhuVuc === kv ? 'active' : ''}" onclick="changeFilter('${kv}')">${kv} (${count})</button>`;
-            });
-            btnContainer.innerHTML = btnHtml;
-
-            let tableHtml = "";
-            let displayedCount = 0;
+            // Lọc các hàng trong bảng
+            const rows = document.querySelectorAll('.row-item');
+            let visibleCount = 0;
             let okCount = 0;
             let koCount = 0;
             let pendingCount = 0;
-
-            currentDataset.forEach(r => {
-                if (activeKhuVuc === "ALL" || r.khu_vuc === activeKhuVuc) {
-                    displayedCount++;
+            
+            rows.forEach(row => {
+                const kv = row.getAttribute('data-khuvuc');
+                const kq = row.getAttribute('data-kq');
+                
+                if (selectedKv === 'ALL' || kv === selectedKv) {
+                    row.classList.remove('hidden');
+                    visibleCount++;
                     
-                    let badgeHtml = "";
-                    let kqLower = r.ket_qua.toLowerCase();
-                    if (kqLower.includes("cải thiện")) {
-                        badgeHtml = '<span class="badge badge-success">✓ Cải Thiện</span>';
+                    // Đếm lại KPI cho khu vực đang chọn
+                    if (kq === 'Cải thiện' || kq === 'Không lõm') {
                         okCount++;
-                    } else if (kqLower.includes("không lõm")) {
-                        badgeHtml = '<span class="badge badge-info">✓ Không Lõm</span>';
-                        okCount++;
-                    } else if (kqLower.includes("không cải thiện") || kqLower.includes("chưa đạt")) {
-                        badgeHtml = '<span class="badge badge-danger">✗ Chưa Đạt</span>';
+                    } else if (kq === 'Không cải thiện') {
                         koCount++;
                     } else {
-                        badgeHtml = '<span class="badge badge-warning">⏳ Chờ Xử Lý</span>';
                         pendingCount++;
                     }
-
-                    tableHtml += `
-                        <tr>
-                            <td>${r.stt}</td>
-                            <td><strong>${r.khu_vuc}</strong></td>
-                            <td>${r.dia_chi}<br><small style="color:#7f8c8d;">Phản ánh: ${r.nhan_vien}</small></td>
-                            <td><span style="color:#d35400; font-weight:bold;">${r.vach_song}</span></td>
-                            <td>${badgeHtml}</td>
-                            <td>${r.giai_phap}</td>
-                            <td><code>${r.tram}</code><br><small style="color:#7f8c8d;">(${r.khoang_cach}m)</small></td>
-                        </tr>
-                    `;
+                } else {
+                    row.classList.add('hidden');
                 }
             });
-
-            tableBody.innerHTML = tableHtml;
-
-            document.getElementById("kpi-total").innerText = displayedCount;
-            document.getElementById("kpi-ok").innerText = okCount;
-            document.getElementById("kpi-ko").innerText = koCount;
-            document.getElementById("kpi-pending").innerText = pendingCount;
-
-            const noDataDiv = document.getElementById("no-data");
-            const tableEl = document.getElementById("data-table");
-            if (displayedCount === 0) {
-                noDataDiv.style.display = "block";
-                tableEl.style.display = "none";
+            
+            // Cập nhật số liệu KPI hiển thị trên màn hình
+            document.getElementById('kpi-total').innerText = visibleCount;
+            document.getElementById('kpi-ok').innerText = okCount;
+            document.getElementById('kpi-ko').innerText = koCount;
+            document.getElementById('kpi-pending').innerText = pendingCount;
+            
+            // Hiển thị thông báo nếu không có dòng nào
+            const noDataDiv = document.getElementById('no-data');
+            const tableEl = document.getElementById('data-table');
+            if (visibleCount === 0) {
+                noDataDiv.style.display = 'block';
+                tableEl.style.display = 'none';
             } else {
-                noDataDiv.style.display = "none";
-                tableEl.style.display = "table";
+                noDataDiv.style.display = 'none';
+                tableEl.style.display = 'table';
             }
         }
-
-        function changeFilter(kv) {
-            activeKhuVuc = kv;
-            renderDashboard();
-        }
-
-        window.onload = function() {
-            checkLibrary();
-            renderDashboard();
-        };
     </script>
 </body>
 </html>
