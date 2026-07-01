@@ -1,0 +1,35 @@
+[
+  {
+    "stt": 1,
+    "khu_vuc": "Kiên Lương",
+    "nhan_vien": "Đặng Trọng Hiếu",
+    "dia_chi": "Khu vực Rạch Đùng, TT. Kiên Lương",
+    "vach_song": "1 vạch",
+    "giai_phap": "Tối ưu vùng phủ anten phát KGG0303-11 hướng 120 độ",
+    "ket_qua": "Cải thiện tốt",
+    "tram": "KGG0303",
+    "khoang_cach": "990"
+  },
+  {
+    "stt": 2,
+    "khu_vuc": "Hòn Đất",
+    "nhan_vien": "Lê Văn Tám",
+    "dia_chi": "Ấp Đường Hòn, Xã Hòn Đất",
+    "vach_song": "0-1 vạch",
+    "giai_phap": "Đề xuất khảo sát bổ sung phát triển trạm mới trong danh mục 2027",
+    "ket_qua": "Chưa đạt yêu cầu",
+    "tram": "KGG0112",
+    "khoang_cach": "1850"
+  },
+  {
+    "stt": 3,
+    "khu_vuc": "U Minh Thượng",
+    "nhan_vien": "Trần Văn Soài",
+    "dia_chi": "Ấp Minh Kiên A, Xã U Minh Thượng",
+    "vach_song": "Sóng chập chờn",
+    "giai_phap": "Thực hiện chỉnh tilt góc ngẩng anten xuống 2 độ và kiểm tra suy hao phi-đơ",
+    "ket_qua": "Đang xử lý",
+    "tram": "KGG1033",
+    "khoang_cach": "505"
+  }
+]
